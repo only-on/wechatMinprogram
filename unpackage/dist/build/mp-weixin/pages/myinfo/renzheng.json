@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "实名认证",
+  "usingComponents": {
+    "image-cropper": "/components/invinbg-image-cropper/invinbg-image-cropper"
+  }
+}

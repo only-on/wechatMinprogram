@@ -1,0 +1,1 @@
+<view class="content"><image style="width:100%;" src="{{tutop}}" mode="widthFix"></image><image style="width:100%;" src="{{tucenter}}" mode="widthFix"></image><image style="width:100%;position:fixed;bottom:1rpx;" src="{{tubottom}}" mode="widthFix"></image><image style="width:200rpx;height:200rpx;position:absolute;top:34%;" src="{{tupian}}" mode="widthFix"></image></view>

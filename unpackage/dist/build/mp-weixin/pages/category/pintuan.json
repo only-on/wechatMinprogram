@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "拼团",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "sl-filter": "/components/sl-filter/sl-filter",
+    "media-item": "/pages/category/pintuan-item"
+  }
+}

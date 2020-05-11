@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "周期购",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "media-item": "/pages/category/zhouqigou-item"
+  }
+}

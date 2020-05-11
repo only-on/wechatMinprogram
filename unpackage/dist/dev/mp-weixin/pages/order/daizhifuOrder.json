@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单状态",
+  "usingComponents": {
+    "uni-number-box": "/components/uni-number-box/uni-number-box",
+    "uni-section": "/components/uni-section/uni-section"
+  }
+}

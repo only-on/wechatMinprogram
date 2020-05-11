@@ -1,0 +1,542 @@
+<template>
+	<view class="tabs">
+		<scroll-view id="tab-bar" class="scroll-h" :scroll-x="true" :show-scrollbar="false" :scroll-into-view="scrollInto">
+			<view v-for="(tab,index) in tabBars" :key="tab.id" class="uni-tab-item" :id="tab.id" :data-current="index" @click="ontabtap">
+				<text class="uni-tab-item-title" :class="tabIndex==index ? 'uni-tab-item-title-active' : ''">{{tab.name}}</text>
+			</view>
+		</scroll-view>
+		<scroll-view id="tab-bar" class="scroll-h" style="padding-left: 15rpx; padding-right: 15rpx;" :scroll-x="true" :show-scrollbar="false" :scroll-into-view="scrollInto">
+			<view v-for="(tab,index) in tabBars2" :key="tab.id" class="uni-tab-item2" :id="tab.id" :data-current="index" @click="ontabtap2">
+				<text class="uni-tab-item-title2" :class="tabIndex2==index ? 'uni-tab-item-title-active2' : ''">{{tab.name}}</text>
+			</view>
+		</scroll-view>
+		<!-- <view class="line-h"></view> -->
+		<swiper :current="tabIndex" class="swiper-box" style="flex: 1; background-color: #F7F7F7; " :duration="300" @change="ontabchange" >
+			<swiper-item class="swiper-item" v-for="(tab,index1) in newsList" :key="index1">
+				<!-- #ifdef APP-NVUE -->
+				<list class="scroll-v list" enableBackToTop="true" scroll-y loadmoreoffset="15" @loadmore="loadMore(index1)">
+					<refresh class="refresh" @refresh="onrefresh(index1)" @pullingdown="onpullingdown" :display="tab.refreshing ? 'show' : 'hide'">
+						<div class="refresh-view">
+							<image class="refresh-icon" :src="refreshIcon" :style="{width: (tab.refreshing || pulling) ? 0: '30px'}" :class="{'refresh-icon-active': tab.refreshFlag}"></image>
+							<loading-indicator class="loading-icon" animating="true" v-if="tab.refreshing"></loading-indicator>
+							<text class="loading-text">{{tab.refreshText}}</text>
+						</div>
+					</refresh>
+
+				</list>
+				<!-- #endif -->
+				<!-- #ifndef APP-NVUE -->
+				<scroll-view class="scroll-v list" enableBackToTop="true" scroll-y @scrolltolower="loadMore(index1)">
+					<view v-for="(newsitem,index2) in product_app_list" :key="newsitem.id">
+						<media-item :options="newsitem" @close="close(index1,index2)" @click="goDetail(newsitem)" style="background-color: #FFFFFF; border: 2rpx solid #FFFFFF; border-radius: 10rpx; margin: 20rpx 20rpx 0rpx 20rpx;"></media-item>
+					</view>
+					<view class="loading-more" v-if="tab.isLoading || tab.data.length > 4">
+						<text class="loading-more-text">{{tab.loadingText}}</text>
+					</view>
+				</scroll-view>
+				<!-- #endif -->
+			</swiper-item>
+		</swiper>
+	</view>
+</template>
+<script>
+	import mediaItem from './news-item.nvue';
+
+	// 缓存每页最多
+	const MAX_CACHE_DATA = 100;
+	// 缓存页签数量
+	const MAX_CACHE_PAGE = 3;
+
+	const newsData = {
+		data0: {
+			"datetime": "40分钟前",
+			"article_type": 0,
+			"title": "uni-app行业峰会频频亮相，开发者反响热烈!",
+			"source": "DCloud",
+			"comment_count": 639
+		},
+		data1: {
+			"datetime": "一天前",
+			"article_type": 1,
+			"title": "DCloud完成B2轮融资，uni-app震撼发布!",
+			"image_url": "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg?imageView2/3/w/200/h/100/q/90",
+			"source": "DCloud",
+			"comment_count": 11395
+		},
+		data2: {
+			"datetime": "一天前",
+			"article_type": 2,
+			"title": "中国技术界小奇迹：HBuilder开发者突破200万",
+			"image_url": "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg?imageView2/3/w/200/h/100/q/90",
+			"source": "DCloud",
+			"comment_count": 11395
+		},
+		data3: {
+			"article_type": 3,
+			"image_list": [{
+				"url": "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg?imageView2/3/w/200/h/100/q/90",
+				"width": 563,
+				"height": 316
+			}, {
+				"url": "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg?imageView2/3/w/200/h/100/q/90",
+				"width": 641,
+				"height": 360
+			}, {
+				"url": "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg?imageView2/3/w/200/h/100/q/90",
+				"width": 640,
+				"height": 360
+			}],
+			"datetime": "5分钟前",
+			"title": "uni-app 支持使用 npm 安装第三方包，生态更趋丰富",
+			"source": "DCloud",
+			"comment_count": 11
+		},
+		data4: {
+			"datetime": "2小时前",
+			"article_type": 4,
+			"title": "uni-app 支持原生小程序自定义组件，更开放、更自由",
+			"image_url": "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg?imageView2/3/w/200/h/100/q/90",
+			"source": "DCloud",
+			"comment_count": 69
+		}
+	};
+
+	export default {
+		components: {
+			mediaItem
+		},
+		data() {
+			return {
+				categoryId: 0,
+				newsList: [],
+				cacheTab: [],
+				product_app_list: [],
+				tabIndex: 0,
+				tabIndex2: 0,
+				tabBars: [],
+				tabBars2: [],
+				scrollInto: "",
+				showTips: false,
+				navigateFlag: false,
+				pulling: false,
+				refreshIcon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAB5QTFRFcHBw3Nzct7e39vb2ycnJioqK7e3tpqam29vb////D8oK7wAAAAp0Uk5T////////////ALLMLM8AAABxSURBVHja7JVBDoAgDASrjqj//7CJBi90iyYeOHTPMwmFZrHjYyyFYYUy1bwUZqtJIYVxhf1a6u0R7iUvWsCcrEtwJHp8MwMdvh2amHduiZD3rpWId9+BgPd7Cc2LIkPyqvlQvKxKBJ//Qwq/CacAAwDUv0a0YuKhzgAAAABJRU5ErkJggg=="
+			}
+		},
+		onLoad(e) {
+			setTimeout(() => {
+				this.tabBars.forEach((tabBar) => {
+					this.newsList.push({
+						data: [],
+						isLoading: false,
+						refreshText: "",
+						loadingText: ''
+					});
+				});
+				this.getList(0);
+			}, 350)
+			this.categoryId = e.categoryId
+			this.$Request.toget(this.$api.category.category_list, {
+				id: e.categoryId
+			}).then(res => {
+				if (res.code == 1000) {
+					this.tabBars =[];
+					for (var i = 0; i < res.content.length; i++) {
+
+						var bean = {
+							id: 0,
+							name: "全部",
+							url: "https://zzwl1zsxn.oss-cn-hangzhou.aliyuncs.com/images/2020/04/01/83f082662cfb7b62d0ad2a15fd06fa90.jpg"
+						}
+						bean.id = res.content[i].id
+						var beantabs = []
+						beantabs = beantabs.concat(bean)
+						beantabs = beantabs.concat(res.content[i].children)
+						
+						var beans={
+							id: 0,
+							name: "全部",
+							children:[]
+						}
+						beans.id = res.content[i].id
+						beans.name = res.content[i].name
+						beans.children = beantabs
+						this.tabBars = this.tabBars.concat(beans)
+					}
+
+					this.tabBars2 =this.tabBars[0].children;
+					this.$Request.toget(this.$api.home.category_list, {
+						categoryId: this.tabBars[0].children[0].id
+					}).then(res => {
+						if (res.code == 1000) {
+							this.product_app_list = res.content.productListAppVoList;
+						}
+					});
+				}
+			});
+		},
+		methods: {
+			getList(index) {
+				let activeTab = this.newsList[index];
+				let list = [];
+				for (let i = 1; i <= 10; i++) {
+					let item = Object.assign({}, newsData['data' + Math.floor(Math.random() * 5)]);
+					item.id = this.newGuid();
+					list.push(item);
+				}
+
+				activeTab.data = activeTab.data.concat(list);
+			},
+			// goDetail(e) {
+			//     if (this.navigateFlag) {
+			//         return;
+			//     }
+			//     this.navigateFlag = true;
+			//     uni.navigateTo({
+			//         url: './detail/detail?title=' + e.title
+			//     });
+			//     setTimeout(() => {
+			//         this.navigateFlag = false;
+			//     }, 200)
+			// },
+			goDetail(item) {
+				uni.navigateTo({
+					url: '/pages/detail/goodsinfo?id=' + item.id + '&type=' + item.type
+				});
+			},
+
+			close(index1, index2) {
+				uni.showModal({
+					content: '是否删除本条信息？',
+					success: (res) => {
+						if (res.confirm) {
+							this.newsList[index1].data.splice(index2, 1);
+						}
+					}
+				})
+			},
+			loadMore(e) {
+				setTimeout(() => {
+					this.getList(this.tabIndex);
+				}, 500)
+			},
+			ontabtap(e) {
+				let index = e.target.dataset.current || e.currentTarget.dataset.current;
+				this.switchTab(index);
+			},
+			ontabtap2(e) {
+				let index = e.target.dataset.current || e.currentTarget.dataset.current;
+				this.switchTab2(index);
+			},
+
+			ontabchange(e) {
+				let index = e.target.current || e.detail.current;
+				this.switchTab(index);
+
+				this.tabBars2 = this.tabBars[index].children;
+			},
+			switchTab(index) {
+				if (this.newsList[index].data.length === 0) {
+					this.getList(index);
+				}
+				this.$Request.toget(this.$api.home.category_list, {
+					categoryId: this.tabBars[index].children[0].id
+				}).then(res => {
+					if (res.code == 1000) {
+						this.product_app_list = res.content.productListAppVoList;
+					}
+				});
+
+				if (this.tabIndex === index) {
+					return;
+				}
+
+				// 缓存 tabId
+				if (this.newsList[this.tabIndex].data.length > MAX_CACHE_DATA) {
+					let isExist = this.cacheTab.indexOf(this.tabIndex);
+					if (isExist < 0) {
+						this.cacheTab.push(this.tabIndex);
+						//console.log("cache index:: " + this.tabIndex);
+					}
+				}
+
+				this.tabIndex = index;
+				this.scrollInto = this.tabBars[index].id;
+				this.tabIndex2 = 0;
+				// 释放 tabId
+				if (this.cacheTab.length > MAX_CACHE_PAGE) {
+					let cacheIndex = this.cacheTab[0];
+					this.clearTabData(cacheIndex);
+					this.cacheTab.splice(0, 1);
+					//console.log("remove cache index:: " + cacheIndex);
+				}
+			},
+
+			switchTab2(index) {
+				// if (this.newsList[index].data.length === 0) {
+				//     this.getList(index);
+				// }
+
+				this.$Request.toget(this.$api.home.category_list, {
+					categoryId: this.tabBars[this.tabIndex].children[index].id
+				}).then(res => {
+					if (res.code == 1000) {
+						this.product_app_list = res.content.productListAppVoList;
+					}
+				});
+
+				if (this.tabIndex2 === index) {
+					return;
+				}
+
+				this.tabIndex2 = index;
+
+			},
+			clearTabData(e) {
+				this.newsList[e].data.length = 0;
+				this.newsList[e].loadingText = "加载更多...";
+			},
+			refreshData() {},
+			onrefresh(e) {
+				var tab = this.newsList[this.tabIndex];
+				if (!tab.refreshFlag) {
+					return;
+				}
+				tab.refreshing = true;
+				tab.refreshText = "正在刷新...";
+
+				setTimeout(() => {
+					this.refreshData();
+					this.pulling = true;
+					tab.refreshing = false;
+					tab.refreshFlag = false;
+					tab.refreshText = "已刷新";
+					setTimeout(() => { // TODO fix ios和Android 动画时间相反问题
+						this.pulling = false;
+					}, 500);
+				}, 2000);
+			},
+			onpullingdown(e) {
+				var tab = this.newsList[this.tabIndex];
+				if (tab.refreshing || this.pulling) {
+					return;
+				}
+				if (Math.abs(e.pullingDistance) > Math.abs(e.viewHeight)) {
+					tab.refreshFlag = true;
+					tab.refreshText = "释放立即刷新";
+				} else {
+					tab.refreshFlag = false;
+					tab.refreshText = "下拉可以刷新";
+				}
+			},
+			newGuid() {
+				let s4 = function() {
+					return (65536 * (1 + Math.random()) | 0).toString(16).substring(1);
+				}
+				return (s4() + s4() + "-" + s4() + "-4" + s4().substr(0, 3) + "-" + s4() + "-" + s4() + s4() + s4()).toUpperCase();
+			}
+		}
+	}
+</script>
+
+<style>
+	/* #ifndef APP-PLUS */
+	page {
+		width: 100%;
+		min-height: 100%;
+		display: flex;
+	}
+
+	/* #endif */
+
+	.tabs {
+		flex: 1;
+		flex-direction: column;
+		overflow: hidden;
+		background-color: #ffffff;
+		/* #ifdef MP-ALIPAY || MP-BAIDU */
+		height: 100vh;
+		/* #endif */
+	}
+
+	.scroll-h {
+		width: 750rpx;
+		height: 100rpx;
+		flex-direction: row;
+		/* #ifndef APP-PLUS */
+		white-space: nowrap;
+		/* #endif */
+		/* flex-wrap: nowrap; */
+		/*   border-color: #EBEBEB;
+		border-bottom-style: solid;
+		border-bottom-width: 1rpx; */
+	}
+
+	.line-h {
+		height: 1rpx;
+		background-color: #cccccc;
+	}
+
+
+
+	.uni-tab-item2 {
+		/* #ifndef APP-PLUS */
+		display: inline-block;
+		/* #endif */
+		flex-wrap: nowrap;
+		padding-left: 15rpx;
+		/* padding-right: 24rpx; */
+	}
+
+	.uni-tab-item-title2 {
+		color: #555;
+		font-size: 28rpx;
+		height: 100rpx;
+		line-height: 100rpx;
+		border-radius: 50rpx;
+		color: #BFBFBF;
+		border: 1rpx solid #BFBFBF;
+		padding: 6rpx 25rpx;
+		flex-wrap: nowrap;
+		/* #ifndef APP-PLUS */
+		white-space: nowrap;
+		/* #endif */
+	}
+
+	.uni-tab-item-title-active2 {
+		color: #49B76D;
+		position: relative;
+		border-radius: 50rpx;
+		color: #FFFFFF;
+		background-color: #49B76D;
+		border: 1rpx solid #49B76D;
+	}
+
+
+	.uni-tab-item {
+		/* #ifndef APP-PLUS */
+		display: inline-block;
+		/* #endif */
+		flex-wrap: nowrap;
+		padding-left: 34rpx;
+		padding-right: 34rpx;
+	}
+
+	.uni-tab-item-title {
+		color: #555;
+		font-size: 34rpx;
+		height: 100rpx;
+		line-height: 100rpx;
+		font-weight: 700;
+		flex-wrap: nowrap;
+		/* #ifndef APP-PLUS */
+		white-space: nowrap;
+		/* #endif */
+	}
+
+	.uni-tab-item-title-active {
+		color: #49B76D;
+		position: relative;
+	}
+
+	.uni-tab-item-title-active:after {
+		content: '';
+		width: 80rpx;
+		display: block;
+		position: absolute;
+		bottom: -10rpx;
+		height: 8rpx;
+		border-radius: 5rpx;
+		background-color: #49B76D;
+		margin: 0 auto;
+		margin-left: 50%;
+		left: -40rpx;
+		/* border-bottom: 6rpx solid #49B76D; */
+	}
+
+	.swiper-box {
+		flex: 1;
+	}
+
+	.swiper-item {
+		flex: 1;
+		flex-direction: row;
+	}
+
+	.scroll-v {
+		flex: 1;
+		/* #ifndef MP-ALIPAY */
+		flex-direction: column;
+		/* #endif */
+		width: 750rpx;
+	}
+
+	.update-tips {
+		position: absolute;
+		left: 0;
+		top: 41px;
+		right: 0;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		background-color: #FDDD9B;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.update-tips-text {
+		font-size: 14px;
+		color: #ffffff;
+	}
+
+	.refresh {
+		width: 750rpx;
+		height: 64px;
+		justify-content: center;
+	}
+
+	.refresh-view {
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.refresh-icon {
+		width: 30px;
+		height: 30px;
+		transition-duration: .5s;
+		transition-property: transform;
+		transform: rotate(0deg);
+		transform-origin: 15px 15px;
+	}
+
+	.refresh-icon-active {
+		transform: rotate(180deg);
+	}
+
+	.loading-icon {
+		width: 20px;
+		height: 20px;
+		margin-right: 5px;
+		color: #999999;
+	}
+
+	.loading-text {
+		margin-left: 2px;
+		font-size: 16px;
+		color: #999999;
+	}
+
+	.loading-more {
+		align-items: center;
+		justify-content: center;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-align: center;
+	}
+
+	.loading-more-text {
+		font-size: 28rpx;
+		color: #999;
+	}
+</style>

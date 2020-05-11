@@ -1,0 +1,22 @@
+
+page{
+	background-color: #F7F7F7;
+}
+.stybutton{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	height: 120rpx; 
+	background-color: #FFFFFF;
+	font-size: 28rpx;
+	 color: #333333;
+	 text-align: start;
+	 line-height: 120rpx;
+	 padding-left: 40rpx;
+	 box-shadow: none; 
+	 border: none;
+}
+.stybutton::after{
+	 border: none;
+}
+

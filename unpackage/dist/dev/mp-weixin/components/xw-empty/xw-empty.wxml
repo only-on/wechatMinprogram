@@ -1,0 +1,1 @@
+<block wx:if="{{isShow}}"><view class="nodata"><image class="empty_image" src="{{img}}" mode="widthFix"></image><text style="{{'color:'+(textColor)+';'}}">{{text}}</text></view></block>

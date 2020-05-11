@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "商品",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "uni-goods-nav": "/components/uni-goods-nav/uni-goods-nav",
+    "uni-number-box": "/components/uni-number-box/uni-number-box",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "simple-modal": "/components/simple-pro/customModal",
+    "u-parse": "/components/gaoyia-parse/parse",
+    "uni-section": "/components/uni-section/uni-section"
+  }
+}

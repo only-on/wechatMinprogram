@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的抽奖",
+  "usingComponents": {
+    "xw-empty": "/components/xw-empty/xw-empty"
+  }
+}

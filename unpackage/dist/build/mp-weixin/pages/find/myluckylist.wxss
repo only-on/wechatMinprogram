@@ -1,0 +1,1 @@
+page{background-color:#f7f7f7}.content{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column;width:100%;height:100%}.huise{font-size:25rpx;color:#686868;height:30rpx;margin-top:10rpx}.lvse{font-size:25rpx;color:#55ff7f;height:30rpx;margin-top:10rpx}

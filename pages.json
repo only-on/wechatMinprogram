@@ -1,0 +1,466 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
+		
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "甄田",
+				"navigationBarTextStyle": "black"
+				// "enablePullDownRefresh": true,
+				// "app-plus": {
+				// 	// "titleNView": {
+				// 	// 	"type": "transparent"
+
+				// 	// },
+				// 	"bounce": "none",
+
+				// 	"pullToRefresh": {
+				// 		"style": "circle",
+				// 		"color": "#FD575C",
+				// 		"offset": "60px"
+				// 	}
+				// },
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/myinfo/myinfo",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/myinfo/login",
+			"style": {
+				"navigationBarTitleText": "授权登录"
+			}
+		},
+		// {
+		// 	"path": "pages/shortvideo/shortvideo",
+		// 	"style": {
+		// 		"navigationBarTitleText": "短视频",
+		// 		"enablePullDownRefresh": true
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/videoshare/videoshare",
+		// 	"style": {
+		// 		"navigationBarTitleText": "短视频"
+		// 	}
+		// },
+		{
+			"path": "pages/find/find",
+			"style": {
+				"navigationBarTitleText": "发现"
+			}
+		},
+		{
+			"path": "pages/setter/setter",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		},
+		{
+			"path": "pages/setter/aboutapp",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		},
+		{
+			"path": "pages/setter/feedback",
+			"style": {
+				"navigationBarTitleText": "意见反馈"
+			}
+		},
+		{
+			"path": "pages/setter/agreement_of_usage",
+			"style": {
+				"navigationBarTitleText": "使用协议"
+			}
+		},
+		{
+			"path": "pages/find/snatch_red_envelope",
+			"style": {
+				"navigationBarTitleText": "天天抢红包"
+			}
+		},
+		{
+			"path": "pages/index/miaosha",
+			"style": {
+				"navigationBarTitleText": "秒杀"
+			}
+		},
+		{
+			"path": "pages/find/lucky_draw",
+			"style": {
+				"navigationBarTitleText": "抽奖",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/find/wallet",
+			"style": {
+				"navigationBarTitleText": "我的钱包",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/find/tixian",
+			"style": {
+				"navigationBarTitleText": "提现"
+			}
+		},
+		{
+			"path": "pages/videoshare/luckyshare",
+			"style": {
+				"navigationBarTitleText": "幸运大抽奖"
+			}
+		},
+		{
+			"path": "pages/find/luckyinfo",
+			"style": {
+				"navigationBarTitleText": "抽奖详情"
+			}
+		},
+		{
+			"path": "pages/find/myluckylist",
+			"style": {
+				"navigationBarTitleText": "我的抽奖"
+			}
+		},
+		{
+			"path": "pages/find/luckyopen",
+			"style": {
+				"navigationBarTitleText": "中奖详情"
+			}
+		},
+		{
+			"path": "pages/find/goluckyshare",
+			"style": {
+				"navigationBarTitleText": "抽奖分享"
+			}
+		},
+		{
+			"path": "pages/find/luckyorder",
+			"style": {
+				"navigationBarTitleText": "订单"
+			}
+		},
+		{
+			"path": "pages/myinfo/conpon",
+			"style": {
+				"navigationBarTitleText": "优惠券"
+			}
+		},
+		{
+			"path": "pages/myinfo/systemmessage",
+			"style": {
+				"navigationBarTitleText": "我的消息",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/myinfo/changinfo",
+			"style": {
+				"navigationBarTitleText": "基本信息"
+			}
+		},
+		{
+			"path": "pages/myinfo/openmessage",
+			"style": {
+				"navigationBarTitleText": "系统消息"
+			}
+		},
+		{
+			"path": "pages/myinfo/information",
+			"style": {
+				"navigationBarTitleText": "信息管理"
+			}
+		},
+		{
+			"path": "pages/myinfo/collect",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/myinfo/renzheng",
+			"style": {
+				"navigationBarTitleText": "实名认证"
+			}
+		},
+		{
+			"path": "pages/myinfo/renzhengover",
+			"style": {
+				"navigationBarTitleText": "提交信息"
+			}
+		},
+		{
+			"path": "pages/category/lingyhqshare",
+			"style": {
+				"navigationBarTitleText": "领取优惠券"
+			}
+		},
+		{
+			"path": "pages/order/ping",
+			"style": {
+				"navigationBarTitleText": "评价"
+			}
+		},
+		
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"navigationBarTextStyle": "black",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"pullToRefresh": {
+						"style": "circle",
+						"color": "#FD575C",
+						"offset": "50px"
+					},
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/category/zhouqigou",
+			"style": {
+				"navigationBarTitleText": "周期购",
+				"navigationBarTextStyle": "black",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"pullToRefresh": {
+						"style": "circle",
+						"color": "#FD575C",
+						"offset": "50px"
+					},
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/category/taocan",
+			"style": {
+				"navigationBarTitleText": "套餐",
+				"navigationBarTextStyle": "black",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"pullToRefresh": {
+						"style": "circle",
+						"color": "#FD575C",
+						"offset": "50px"
+					},
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/category/pintuan",
+			"style": {
+				"navigationBarTitleText": "拼团",
+				"navigationBarTextStyle": "black",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"pullToRefresh": {
+						"style": "circle",
+						"color": "#FD575C",
+						"offset": "50px"
+					},
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/order/createOrder",
+			"style": {
+				"navigationBarTitleText": "创建订单"
+			}
+		},
+		{
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "我的订单"
+			}
+		},
+		{
+			"path": "pages/order/daizhifuOrder",
+			"style": {
+				"navigationBarTitleText": "订单状态"
+			}
+		},
+		{
+			"path": "pages/order/daipinOrder",
+			"style": {
+				"navigationBarTitleText": "订单状态"
+			}
+		},
+		{
+			"path": "pages/jiu/index",
+			"style": {
+				"navigationBarTitleText": "9.9包邮",
+				"navigationBarTextStyle": "black",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"pullToRefresh": {
+						"style": "circle",
+						"color": "#FD575C",
+						"offset": "50px"
+					},
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/videoshare/new_file",
+			"style": {
+				"navigationBarTitleText": "分享预览"
+			}
+		},
+		{
+			"path": "pages/cate/index",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"searchInput": {
+							"borderRadius": "10px",
+							"placeholder": "你好啊点击搜索啊",
+							"placeholderColor": "#FD575C"
+						},
+						"buttons": [{
+								"text": "",
+								"float": "left"
+							},
+							{
+								"type": "menu"
+							}
+						]
+					}
+				},
+
+
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/like/index",
+			"style": {
+				"navigationBarTitleText": "收藏",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/member/index",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/member/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/member/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/detail/goodsinfo",
+			"style": {
+				"navigationBarTitleText": "商品",
+				"navigationBarTextStyle": "black",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce": "none",
+					"scrollIndicator": "none",
+					"titleNView": {
+						"type": "transparent",
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			
+			}
+		},
+		{
+			"path": "pages/category/lingyhq",
+			"style": {
+				"navigationBarTitleText": "领取优惠券"
+			}
+		}
+
+	],
+	"tabBar": {
+		"color": "#c1c1c1",
+		"selectedColor": "#65c186",
+		"borderStyle": "black",
+		"backgroundColor": "#f5f5f5",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/icon_home.png",
+			"selectedIconPath": "static/icon_home_select.png",
+			"text": "首页"
+		},
+		// {
+		// 	"pagePath": "pages/shortvideo/shortvideo",
+		// 	"iconPath": "static/icon_college.png",
+		// 	"selectedIconPath": "static/icon_college_select.png",
+		// 	"text": "短视频"
+		// }, 
+		{
+			"pagePath": "pages/find/find",
+			"iconPath": "static/icon_discover.png",
+			"selectedIconPath": "static/icon_discover_select.png",
+			"text": "发现"
+		}, {
+			"pagePath": "pages/myinfo/myinfo",
+			"iconPath": "static/icon_myself.png",
+			"selectedIconPath": "static/icon_myself_select.png",
+			"text": "我的"
+		}]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "我的",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	}
+}

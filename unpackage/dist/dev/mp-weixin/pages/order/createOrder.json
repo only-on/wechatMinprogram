@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "创建订单",
+  "usingComponents": {
+    "uni-number-box": "/components/uni-number-box/uni-number-box",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "uni-section": "/components/uni-section/uni-section"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/myinfo/myinfo",
+    "pages/myinfo/login",
+    "pages/find/find",
+    "pages/setter/setter",
+    "pages/setter/aboutapp",
+    "pages/setter/feedback",
+    "pages/setter/agreement_of_usage",
+    "pages/find/snatch_red_envelope",
+    "pages/index/miaosha",
+    "pages/find/lucky_draw",
+    "pages/find/wallet",
+    "pages/find/tixian",
+    "pages/videoshare/luckyshare",
+    "pages/find/luckyinfo",
+    "pages/find/myluckylist",
+    "pages/find/luckyopen",
+    "pages/find/goluckyshare",
+    "pages/find/luckyorder",
+    "pages/myinfo/conpon",
+    "pages/myinfo/systemmessage",
+    "pages/myinfo/changinfo",
+    "pages/myinfo/openmessage",
+    "pages/myinfo/information",
+    "pages/myinfo/collect",
+    "pages/myinfo/renzheng",
+    "pages/myinfo/renzhengover",
+    "pages/category/lingyhqshare",
+    "pages/order/ping",
+    "pages/category/category",
+    "pages/category/zhouqigou",
+    "pages/category/taocan",
+    "pages/category/pintuan",
+    "pages/order/createOrder",
+    "pages/order/order",
+    "pages/order/daizhifuOrder",
+    "pages/order/daipinOrder",
+    "pages/jiu/index",
+    "pages/videoshare/new_file",
+    "pages/cate/index",
+    "pages/like/index",
+    "pages/member/index",
+    "pages/member/login",
+    "pages/member/register",
+    "pages/detail/goodsinfo",
+    "pages/search/index",
+    "pages/category/lingyhq"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "我的",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#c1c1c1",
+    "selectedColor": "#65c186",
+    "borderStyle": "black",
+    "backgroundColor": "#f5f5f5",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icon_home.png",
+        "selectedIconPath": "static/icon_home_select.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "iconPath": "static/icon_discover.png",
+        "selectedIconPath": "static/icon_discover_select.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/myinfo/myinfo",
+        "iconPath": "static/icon_myself.png",
+        "selectedIconPath": "static/icon_myself_select.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取当前位置，为您推荐您身边的好货。"
+    }
+  },
+  "usingComponents": {
+    "lb-picker": "/components/lb-picker/index"
+  }
+}

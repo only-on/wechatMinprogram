@@ -1,0 +1,390 @@
+<template>
+	<!-- remove list-cell layer fix android 4.x overflow limit error: 28 layers! -->
+	<!-- <view class="list-cell view" @click="click"></view> -->
+	<view class="media-item goods-list view" hover-class="media-item-hover" v-if="options.title" @click="click">
+		<!-- <view class="view" :style="options.article_type === 2 ? 'flex-direction: row';" :class="{'media-image-right': options.article_type === 2, 'media-image-left': options.article_type === 1}"> -->
+		<!-- TODO 在支付宝小程序下 需要用 style 覆盖标签的默认样式 -->
+		<!-- <view class="view" :style="{ flexDirection: options.article_type === 1 || options.article_type === 2 ? (options.article_type === 2 ? 'row' : 'row-reverse') : 'column' }"> -->
+			<!-- <view>
+				<image class="image-list3" v-if="options.url" :src="options.url" />
+			</view>
+			<view>
+				<text class="media-title media-title2">{{ options.title }}</text>
+			</view> -->
+		<!-- </view> -->
+		<!-- <view class="media-foot flex-row" style="flex-direction: row;">
+			<view class="media-info flex-row" style="flex-direction: row;">
+				<text class="info-text">{{options.source}}</text>
+				<text class="info-text">{{options.comment_count}}条评论</text>
+				<text class="info-text">{{options.datetime}}</text>
+			</view>
+			<view class="max-close-view" @click.stop="close">
+				<view class="close-l close-h"></view>
+				<view class="close-l close-v"></view>
+			</view>
+		</view> -->
+		
+		<!-- <view class="goods-list" v-if="schemeIsRecommendedVos.length > 0"> -->
+			<!-- <view class="coupon-page s-row" v-for="(item, index) in schemeIsRecommendedVos" :key="index" @tap="toGoodsInfo(options.itemid)"> -->
+				<view class="image"><image :src="options.url"></image></view>
+				<view class="content">
+					<view class="title">{{ options.title }}</view>
+					
+					<view class="num s-row">
+						<text class="tmprice" v-for="(itema1, indexa1) in options.labelNames" :key="indexa1" v-if="indexa1<5">{{itema1}}</text>
+					</view>
+					<view class="money s-row">
+						<text class="coupon-price">
+							<text>¥{{ options.discountPrice}}</text>
+							<text class="del">¥{{ options.originalPrice }}</text>
+						</text>
+						<text class="qishou">{{options.minQuantity}}件起售</text>
+					</view>
+				</view>
+			<!-- </view> -->
+		<!-- </view> -->
+		<!-- <view class="media-item-line" style="position: absolute;"></view> -->
+	</view>
+</template>
+
+<script>
+export default {
+	props: {
+		options: {
+			type: Object,
+			default: function(e) {
+				return {};
+			}
+		}
+	},
+	methods: {
+		click() {
+			this.$emit('click');
+		},
+		close(e) {
+			this.$emit('close');
+		}
+	}
+};
+</script>
+
+<style>
+.view {
+	flex-direction: column;
+}
+
+.flex-row {
+	flex-direction: row;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.list-cell {
+	width: 750rpx;
+	padding: 0 30rpx;
+}
+
+.uni-list-cell-hover {
+	background-color: #eeeeee;
+}
+
+.media-item {
+	position: relative;
+	flex: 1;
+	flex-direction: column;
+	/* border-bottom-width: 1rpx;
+		border-bottom-style: solid;
+		border-bottom-color: #ebebeb; */
+	padding: 20rpx 30rpx 21rpx 30rpx;
+}
+
+.media-item-hover {
+	background-color: #eee;
+}
+
+.media-item-line {
+	position: absolute;
+	left: 30rpx;
+	right: 30rpx;
+	bottom: 0;
+	height: 1rpx;
+	background-color: #FFFFFF;
+}
+
+.media-image-right {
+	flex-direction: row;
+}
+
+.media-image-left {
+	flex-direction: row-reverse;
+}
+
+.media-title {
+	flex: 1;
+}
+
+.media-title {
+	lines: 3;
+	text-overflow: ellipsis;
+	font-size: 30rpx;
+	color: #555555;
+}
+
+.media-title2 {
+	flex: 1;
+	margin-top: 6rpx;
+	line-height: 40rpx;
+}
+
+.image-section {
+	margin-top: 20rpx;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.image-section-right {
+	margin-top: 0rpx;
+	margin-left: 10rpx;
+	width: 225rpx;
+	height: 146rpx;
+}
+
+.image-section-left {
+	margin-top: 0rpx;
+	margin-right: 10rpx;
+	width: 225rpx;
+	height: 146rpx;
+}
+
+.image-list1 {
+	width: 690rpx;
+	height: 481rpx;
+}
+
+.image-list2 {
+	width: 225rpx;
+	height: 146rpx;
+}
+
+.image-list3 {
+	width: 225rpx;
+	height: 146rpx;
+}
+
+.media-info {
+	flex-direction: row;
+	align-items: center;
+}
+
+.info-text {
+	margin-right: 20rpx;
+	color: #999999;
+	font-size: 24rpx;
+}
+
+.media-foot {
+	margin-top: 25rpx;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.max-close-view {
+	position: relative;
+	align-items: center;
+	flex-direction: row;
+	width: 40rpx;
+	height: 30rpx;
+	line-height: 30rpx;
+	border-width: 1rpx;
+	border-style: solid;
+	border-color: #aaaaaa;
+	border-radius: 4px;
+	justify-content: center;
+	text-align: center;
+}
+
+.close-l {
+	position: absolute;
+	width: 18rpx;
+	height: 1rpx;
+	background-color: #aaaaaa;
+}
+
+.close-h {
+	transform: rotate(45deg);
+}
+
+.close-v {
+	transform: rotate(-45deg);
+}
+
+
+
+
+
+
+
+
+
+
+/* 方案推荐start */
+
+.goods-list {
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+}
+
+.goods-list .image {
+	/* float: left;
+	width: 30%; */
+	flex: 1;
+}
+
+.goods-list .image image {
+	width: 200rpx;
+	height: 200rpx;
+	border-radius: 3px;
+}
+
+.goods-list .content {
+	/* float: right;
+	width: 60%; */
+	flex: 2;
+}
+
+.goods-list .content .title {
+	color: #000;
+	font-weight: 700;
+	font-size: 30rpx;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	height: 50px;
+	overflow: hidden;
+}
+
+.goods-list .content .num {
+	color: #FA4D52;
+	line-height: 20px;
+	/* font-size: 14px; */
+}
+
+
+
+.goods-list .content .num .tmprice {
+	/* padding-right: 10px; */
+	margin-right: 10px;
+	position: relative;
+	z-index: 1;
+	zoom: 1;
+	display: inline-block;
+	padding: 0 6rpx;
+}
+
+.goods-list .content .num .volume {
+	float: right;
+
+}
+
+.goods-list .content .money {
+	/* height: 24px; */
+	font-size: 18px;
+	margin-top: 5px;
+}
+
+.goods-list .content .money .quan {
+	padding: 0;
+	position: relative;
+	z-index: 1;
+	zoom: 1;
+	top: 0;
+	/* overflow: hidden; */
+	float: right;
+}
+.goods-list .content .money .quan .image-fire{
+	width: 36rpx;
+	height: 36rpx;
+	position: absolute;
+	left: -50rpx;
+	
+}
+.goods-list .content .money .quan .image-fire image{
+	width: 100%;
+	height: 100%;
+}
+
+.goods-list .content .money .quan {
+	background-color: #EC1E27;
+	position: relative;
+	z-index: 1;
+	zoom: 1;
+	font-style: normal;
+	display: block;
+	border-radius: 30px;
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-o-border-radius: 30px;
+	-ms-border-radius: 30px;
+	font-size: .685rem;
+	min-width: 3rem;
+	text-align: center;
+	padding: 1px 10px;
+	color: #fff;
+}
+
+
+.goods-list .content .money .coupon-price {
+	color: #FC4D52;
+	font-size: 12px;
+}
+
+.goods-list .content .money .coupon-price text {
+	font-size: 16px;
+	padding-left: 5px;
+}
+
+.goods-list .content .money .coupon-price .del {
+	font-size: 12px;
+	padding-left: 8px;
+	color: #AAAAAA;
+	text-decoration:line-through;
+}
+
+.goods-list .content .money .qishou {
+	font-size: 23rpx;
+	color: #999999;
+	float:right;
+	margin-top: 11rpx;
+	margin-right: 20rpx;
+}
+
+.goods-list .num{
+	font-size: 26rpx;
+	color: #5BB676;
+	/* height: 40rpx; */
+	overflow: hidden;
+}
+
+
+.goods-list .num .tmprice{
+	display: inline-block;
+	border-radius: 10rpx;
+	margin-right: 15rpx;
+	border: 2rpx solid #5BB676;
+	padding: 4rpx;
+	color: #5BB676;
+	background-color: #EDFFF3;
+	margin-top: 10rpx;
+
+}
+
+/* 方案推荐end */
+
+
+
+</style>

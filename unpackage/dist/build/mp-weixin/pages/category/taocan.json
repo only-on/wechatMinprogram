@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "套餐",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "media-item": "/pages/category/taocan-item"
+  }
+}

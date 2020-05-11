@@ -1,0 +1,1 @@
+page{background:#fff}.content{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column;width:100%;background:#fff}
